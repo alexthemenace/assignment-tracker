@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+    id 'application' // Makes it easy to run the application
+}
+
+group 'com.yourusername' // Change to your preferred group ID
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Jackson for JSON Processing (Persistence & Canvas API)
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2' // Use the latest stable version
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2' // For Java 8 Date/Time types (LocalDateTime)
+
+    // Optional: HTTP Client (Java 11+ has a built-in one, but OkHttp is popular)
+    // implementation 'com.squareup.okhttp3:okhttp:4.11.0' // If not using built-in HttpClient
+
+    // Testing (Recommended)
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+}
+
+application {
+    // Define the main class for the application plugin
+    mainClass = 'com.yourusername.assignmenttracker.App'
+}
+
+java {
+    // Ensure you are using Java 11 or higher for built-in HttpClient
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Task to create necessary directories if they don't exist
+task createDirs {
+    doLast {
+        def sourceDir = file("src/main/java/com/yourusername/assignmenttracker")
+        ["model", "service", "canvas/dto"].each { subdir ->
+            def dir = new File(sourceDir, subdir)
+            if (!dir.exists()) {
+                println "Creating directory: ${dir}"
+                dir.mkdirs()
+            }
+        }
+         def resourceDir = file("src/main/resources")
+         if (!resourceDir.exists()) {
+             println "Creating directory: ${resourceDir}"
+             resourceDir.mkdirs()
+         }
+    }
+}
+// Make sure directories are created before compilation
+compileJava.dependsOn createDirs
