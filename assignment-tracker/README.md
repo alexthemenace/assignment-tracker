@@ -38,7 +38,7 @@ A simple Java command-line application to track course assignments, with optiona
     ```
 
 2.  **Build the application:**
-    *   On Linux/macOS: `./gradlew build`
+    *   On Linux/macOS: `gradle build`
     *   On Windows: `gradlew.bat build`
 
 3.  **Configure Canvas (Optional but Recommended):**
@@ -53,7 +53,7 @@ A simple Java command-line application to track course assignments, with optiona
     *   **In-App Configuration:** Run the application and use Menu Option 7 ("Configure Canvas API") to enter the details. Note: This configuration is not persistently saved across application restarts in this basic version unless you modify the code to save/load from a config file.
 
 4.  **Run the application:**
-    *   On Linux/macOS: `./gradlew run`
+    *   On Linux/macOS: `gradle run`
     *   On Windows: `gradlew.bat run`
 
 5.  **Follow the on-screen menu options.**
